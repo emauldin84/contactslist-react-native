@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
         marginHorizontal: 15,
         width: '90%',
-        backgroundColor: 'lightblue'
 
     }
 })
