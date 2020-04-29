@@ -1,11 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Keyboard, StyleSheet, TouchableWithoutFeedback, Text, View } from 'react-native';
+import Constants from 'expo-constants'
+
+
+import AddContactForm from './components/AddContactForm'
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View style={styles.container}>
+        <AddContactForm />
+
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -14,6 +21,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
+    marginTop: Constants.statusBarHeight
   },
 });
