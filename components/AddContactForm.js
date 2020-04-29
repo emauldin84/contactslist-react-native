@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
 import { Button, Keyboard, StyleSheet, TextInput, View } from 'react-native'
 
-const AddContactForm = () => {
+const AddContactForm = (props) => {
     const [name, setName] = useState('')
     const [phone, setPhone] = useState('')
-
+    const [key, setKey] = useState(2)
     const handleNameChange = name => setName(name)
     const handlePhoneChange = phone => setPhone(phone)
     const handleSubmit = () => {
-        console.log(submitting)
+        console.log('submitting')
+        props.setContacts(prevContacts => [...prevContacts, {name, phone, key: `${key}`}])
+        setKey(prevKey => prevKey + 1)
     }
 
     return(
@@ -18,6 +20,7 @@ const AddContactForm = () => {
                 placeholder='name'
                 value={name} 
                 onChangeText={handleNameChange}
+                onBlur={Keyboard.dismiss}
             />
             <TextInput 
                 style={styles.input} 
@@ -25,6 +28,7 @@ const AddContactForm = () => {
                 value={phone} 
                 onChangeText={handlePhoneChange}
                 keyboardType='numeric'
+                onBlur={Keyboard.dismiss}
             />
             <Button 
                 title='Add Contact' 
@@ -38,6 +42,7 @@ const AddContactForm = () => {
 const styles = StyleSheet.create({
     formContainer: {
         borderBottomColor: '#ccc',
+        width: '50%'
     }, 
     input: {
         borderBottomColor: 'darkblue',
