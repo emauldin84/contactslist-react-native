@@ -33,7 +33,6 @@ const AddContactForm = (props) => {
             )
             return
         }
-        
         props.setContacts(prevContacts => [...prevContacts, {name, phone, key: `${key}`}])
         setKey(prevKey => prevKey + 1)
         setName('')
@@ -68,7 +67,7 @@ const AddContactForm = (props) => {
                             placeholder='phone'
                             value={phone} 
                             onChangeText={handlePhoneChange}
-                            keyboardType='numeric'
+                            keyboardType='phone-pad'
                             onBlur={Keyboard.dismiss}
                             required={true}
                         />
