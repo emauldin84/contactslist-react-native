@@ -13,6 +13,8 @@ const AddContactForm = (props) => {
     const handleSubmit = () => {
         props.setContacts(prevContacts => [...prevContacts, {name, phone, key: `${key}`}])
         setKey(prevKey => prevKey + 1)
+        setName('')
+        setPhone('')
         props.handleCloseModal()
     }
 
