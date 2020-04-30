@@ -1,14 +1,31 @@
 import React from 'react'
-import {FlatList, StyleSheet, Text, View} from 'react-native'
+import {SectionList, StyleSheet, Text, View} from 'react-native'
 
 import Contact from './Contact'
 
+const renderItem = ({item}) => <Contact {...item}/>
+const renderSectionHeader = ({section}) => <Text>{section.title}</Text>
+
 const ContactsList = (props) => {
+    const contactsByLetter = props.contacts.reduce((obj, contact) => {
+        const firstLetter = contact.name[0].toUpperCase()
+        return {
+            ...obj,
+            [firstLetter]: [...(obj[firstLetter] || []), contact]
+        }
+    }, {})
+
+    const sections = Object.keys(contactsByLetter).sort().map(letter => ({
+        data: contactsByLetter[letter],
+        title: letter,
+    }))
+
     return(
         <View style={styles.listContainer}>
-            <FlatList
-            data={[...props.contacts]}
-            renderItem={({item}) => <Contact {...item}/>}
+            <SectionList
+            sections={sections}
+            renderItem={renderItem}
+            renderSectionHeader={renderSectionHeader}
             />
 
         </View>
