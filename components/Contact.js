@@ -3,7 +3,6 @@ import {StyleSheet, Text, View} from 'react-native'
 
 
 const Contact = (props) => {
-    console.log(props)
     return(
         <View style={styles.contactContainer}>
             <Text>{props.name}</Text>

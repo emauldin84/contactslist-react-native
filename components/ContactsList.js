@@ -14,11 +14,13 @@ const ContactsList = (props) => {
             [firstLetter]: [...(obj[firstLetter] || []), contact]
         }
     }, {})
+    // console.log('contactsByLetter', contactsByLetter)
 
     const sections = Object.keys(contactsByLetter).sort().map(letter => ({
         data: contactsByLetter[letter],
         title: letter,
     }))
+    console.log('sections', sections)
 
     return(
         <View style={styles.listContainer}>
