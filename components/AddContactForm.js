@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Keyboard, Modal, StyleSheet, TextInput, TouchableWithoutFeedback, View } from 'react-native'
+import { Alert, Button, Keyboard, Modal, StyleSheet, TextInput, TouchableWithoutFeedback, View } from 'react-native'
 import { AntDesign } from '@expo/vector-icons';
 import Constants from 'expo-constants'
 
@@ -8,15 +8,39 @@ const AddContactForm = (props) => {
     const [name, setName] = useState('')
     const [phone, setPhone] = useState('')
     const [key, setKey] = useState(2)
+    
     const handleNameChange = name => setName(name)
     const handlePhoneChange = phone => setPhone(phone)
     const handleSubmit = () => {
+        if (name.length <= 0 && phone.length <= 0){
+            Alert.alert(
+                'Slow down bucko...',
+                'Looks like you forgot to add a name and phone number!'
+            )
+            return
+        }
+        if (name.length <= 0){
+            Alert.alert(
+                'Slow down bucko...',
+                'Looks like you forgot to add a name!'
+            )
+            return
+        }
+        if (phone.length <= 0){
+            Alert.alert(
+                'Slow down bucko...',
+                'Looks like you forgot to add a phone number!'
+            )
+            return
+        }
+        
         props.setContacts(prevContacts => [...prevContacts, {name, phone, key: `${key}`}])
         setKey(prevKey => prevKey + 1)
         setName('')
         setPhone('')
         props.handleCloseModal()
     }
+
 
     return(
         <Modal visible={props.modalVisible} animationType='slide'>
@@ -35,6 +59,9 @@ const AddContactForm = (props) => {
                             value={name} 
                             onChangeText={handleNameChange}
                             onBlur={Keyboard.dismiss}
+                            autoFocus={true}
+                            required={true}
+
                         />
                         <TextInput 
                             style={styles.input} 
@@ -43,6 +70,7 @@ const AddContactForm = (props) => {
                             onChangeText={handlePhoneChange}
                             keyboardType='numeric'
                             onBlur={Keyboard.dismiss}
+                            required={true}
                         />
                         <Button 
                             title='Add Contact' 
@@ -68,7 +96,7 @@ const styles = StyleSheet.create({
     formContainer: {
         flex: 1,
         borderBottomColor: '#ccc',
-        width: '50%',
+        width: 300,
         alignSelf: 'center',
         justifyContent: 'center',
         marginTop: -Constants.statusBarHeight,
