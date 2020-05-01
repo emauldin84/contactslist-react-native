@@ -63,7 +63,7 @@ const AddContactForm = (props) => {
                     <AntDesign 
                         name="close" 
                         size={35}
-                        style={{...styles.modalClose}} 
+                        style={styles.modalClose} 
                         onPress={props.handleCloseModal} 
                     />
                     <View style={styles.formContainer}>
@@ -73,7 +73,6 @@ const AddContactForm = (props) => {
                             value={name} 
                             onChangeText={handleNameChange}
                             onBlur={Keyboard.dismiss}
-                            autoFocus={true}
                             required={true}
 
                         />
@@ -105,7 +104,7 @@ const styles = StyleSheet.create({
     },
     modalClose:{
         alignSelf: 'flex-end',
-        marginRight: 20
+
     },
     formContainer: {
         flex: 1,
