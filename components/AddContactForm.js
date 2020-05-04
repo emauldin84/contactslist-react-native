@@ -16,18 +16,18 @@ const AddContactForm = (props) => {
             setPhone(phone)
         }
     }
-    // const formatPhoneNumber = text => {
-    //     let cleaned = ("" + text).replace(/\D/g, "");
-    //     let match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);
-    //     if (match) {
-    //         let intlCode = match[1] ? "+1 " : "",
-    //         number = [intlCode, "(", match[2], ") ", match[3], "-", match[4]].join(
-    //             ""
-    //         );
-    //         return number;
-    //     }
-    //     return text;
-    // }
+    const formatPhoneNumber = text => {
+        let cleaned = ("" + text).replace(/\D/g, "");
+        let match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);
+        if (match) {
+            let intlCode = match[1] ? "+1 " : "",
+            number = [intlCode, "(", match[2], ") ", match[3], "-", match[4]].join(
+                ""
+            );
+            return number;
+        }
+        return text;
+    }
 
     const handleSubmit = () => {
         if (name.length <= 0 && phone.length <= 0){
@@ -58,7 +58,8 @@ const AddContactForm = (props) => {
             )
             return
         }
-        props.setContacts(prevContacts => [...prevContacts, {name, phone, key: `${key}`}])
+        let formattedNum = formatPhoneNumber(phone)
+        props.setContacts(prevContacts => [...prevContacts, {name, phone: formattedNum, key: `${key}`}])
         setKey(prevKey => prevKey + 1)
         setName('')
         setPhone('')

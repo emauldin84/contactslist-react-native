@@ -8,8 +8,8 @@ import ContactsList from './components/ContactsList'
 
 export default function App() {
   const [contacts, setContacts] = useState([
-      {name: 'Eric Mauldin', phone: '800-555-5555', key: '0'},
-      {name: 'Caitlin Cirou', phone: '800-666-6666', key: '1'},
+      {name: 'Eric Mauldin', phone: '(800) 555-5555', key: '0'},
+      {name: 'Caitlin Cirou', phone: '(800) 666-6666', key: '1'},
     ])
   const [modalVisible, setModalVisible] = useState(false)
 
