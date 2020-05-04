@@ -115,7 +115,6 @@ const styles = StyleSheet.create({
     },
     modalClose:{
         alignSelf: 'flex-end',
-
     },
     formContainer: {
         flex: 1,
