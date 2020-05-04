@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Alert, Button, Keyboard, Modal, StyleSheet, TextInput, TouchableWithoutFeedback, View } from 'react-native'
+import { Alert, Button, Keyboard, KeyboardAvoidingView, Modal, StyleSheet, TextInput, TouchableWithoutFeedback, View } from 'react-native'
 import { AntDesign } from '@expo/vector-icons';
 import Constants from 'expo-constants'
 
@@ -11,21 +11,24 @@ const AddContactForm = (props) => {
     
     const handleNameChange = name => setName(name)
     const handlePhoneChange = phone => {
-        let formattedPhone = formatPhoneNumber(phone)
-        setPhone(formattedPhone)
-    }
-    const formatPhoneNumber = text => {
-        let cleaned = ("" + text).replace(/\D/g, "");
-        let match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);
-        if (match) {
-            let intlCode = match[1] ? "+1 " : "",
-            number = [intlCode, "(", match[2], ") ", match[3], "-", match[4]].join(
-                ""
-            );
-            return number;
+        // let formattedPhone = formatPhoneNumber(phone)
+        if(+phone >= 0 && phone.length <= 10){
+            setPhone(phone)
         }
-        return text;
     }
+    // const formatPhoneNumber = text => {
+    //     let cleaned = ("" + text).replace(/\D/g, "");
+    //     let match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);
+    //     if (match) {
+    //         let intlCode = match[1] ? "+1 " : "",
+    //         number = [intlCode, "(", match[2], ") ", match[3], "-", match[4]].join(
+    //             ""
+    //         );
+    //         return number;
+    //     }
+    //     return text;
+    // }
+
     const handleSubmit = () => {
         if (name.length <= 0 && phone.length <= 0){
             Alert.alert(
@@ -48,6 +51,13 @@ const AddContactForm = (props) => {
             )
             return
         }
+        if (phone.length < 10){
+            Alert.alert(
+                'Slow down bucko...',
+                'Phone number must be 10 digits!'
+            )
+            return
+        }
         props.setContacts(prevContacts => [...prevContacts, {name, phone, key: `${key}`}])
         setKey(prevKey => prevKey + 1)
         setName('')
@@ -66,7 +76,7 @@ const AddContactForm = (props) => {
                         style={styles.modalClose} 
                         onPress={props.handleCloseModal} 
                     />
-                    <View style={styles.formContainer}>
+                    <KeyboardAvoidingView behavior='padding' style={styles.formContainer}>
                         <TextInput 
                             style={styles.input}
                             placeholder='name'
@@ -90,7 +100,7 @@ const AddContactForm = (props) => {
                             color="darkblue"
                             onPress={handleSubmit}
                             />
-                    </View>
+                    </KeyboardAvoidingView>
                 </View>
             </TouchableWithoutFeedback>
         </Modal>
